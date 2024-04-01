@@ -88,7 +88,7 @@ function makeBook(bookObject) {
     book_shelf.append(textBook_shelf);
     book_shelf.setAttribute('id', `book-${bookObject.id}`);
 
-    //making undo and trash button
+    //making undo, edit and trash button
     if(bookObject.bookIsComplete){
         const undoButton = document.createElement('button');
         undoButton.classList.add('undo-button');
@@ -98,6 +98,14 @@ function makeBook(bookObject) {
             undoTitleFromComplete(bookObject.id);
         });
 
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit-button');
+        editButton.textContent = "Edit";
+
+        editButton.addEventListener('click', function(){
+            editBook(bookObject.id);
+        });
+
         const trashButton = document.createElement('button');
         trashButton.classList.add('trash-button');
         trashButton.textContent = 'Hapus buku';
@@ -106,7 +114,7 @@ function makeBook(bookObject) {
             removeTitleFromComplete(bookObject.id);
         });
 
-        book_shelf.append(undoButton, trashButton);
+        book_shelf.append(undoButton, editButton, trashButton);
     }else{
         const checkButton = document.createElement('button');
         checkButton.classList.add('check-button');
@@ -116,6 +124,14 @@ function makeBook(bookObject) {
             addTitleToComplete(bookObject.id);
         });
 
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit-button');
+        editButton.textContent = "Edit";
+
+        editButton.addEventListener('click', function(){
+            editBook(bookObject.id);
+        });
+
         const trashButton = document.createElement('button');
         trashButton.classList.add('trash-button');
         trashButton.textContent = 'Hapus buku';
@@ -124,7 +140,7 @@ function makeBook(bookObject) {
             removeTitleFromComplete(bookObject.id);
         });
 
-        book_shelf.append(checkButton, trashButton);
+        book_shelf.append(checkButton, editButton, trashButton);
     }
 
     return book_shelf;
@@ -180,6 +196,26 @@ function findBookIndex(bookId){
     }
 
     return -1;
+}
+
+//edit
+function editBook(bookId){
+    const bookTarget = findBook(bookId);
+
+    if(bookTarget == null) return;
+
+    const newTitle = prompt('Masukkan judul baru:', bookTarget.title);
+    const newAuthor = prompt('Masukkan penulis baru:', bookTarget.author);
+    const newYear = prompt('Masukkan tahun buku baru:', bookTarget.year);
+
+    if(newTitle !== null && newAuthor !== null && newYear !== null){
+        bookTarget.title = newTitle;
+        bookTarget.author = newAuthor;
+        bookTarget.year = newYear;
+
+        document.dispatchEvent(new Event(RENDER_EVENT));
+        saveData();
+    }
 }
 
 
@@ -256,3 +292,4 @@ function searchBooks(){
             completedRead.append(bookElement);
     }
 }
+

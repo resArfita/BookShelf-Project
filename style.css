@@ -166,8 +166,19 @@ main {
     color: white;
     border: 0;
     border-radius: 5px;
-    width: 50%;
+    width: 40%;
     padding: 4px;
+    cursor: pointer;
+}
+
+.edit-button{
+    background-color: rgb(28, 105, 21);
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    width: 10%;
+    padding: 4px;
+    margin: 3px;
     cursor: pointer;
 }
 
