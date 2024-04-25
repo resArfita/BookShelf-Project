@@ -1,7 +1,7 @@
 # BookShelf-Project
 implement from the Dicoding Academy (making a basic Web app)
 
-##the functionality:
+## the functionalities inside the app:
 + masukkan buku
 + search
 + hapus
